@@ -1,0 +1,138 @@
+<div class="example-container">
+  <mat-card>
+    <mat-card-actions class="card-actions">
+      <div class="col-start">
+        <mat-card-title class="card-title">List Of Invoices</mat-card-title>
+      </div>
+      <div class="col-end">
+        <input hidden type="file" accept=".json" #jsonUpload (change)="invoiceCreate($event)" />
+        <button
+          class="card-actions-button"
+          mat-button
+          matTooltip="Ekle"
+          matTooltipPosition="above"
+          (click)="jsonUpload.click()"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+
+        <button
+          class="card-actions-button"
+          mat-button
+          matTooltip="Yenile"
+          matTooltipPosition="above"
+          (click)="searchHide = false"
+          (click)="getAllHeader()"
+        >
+          <mat-icon>refresh</mat-icon>
+        </button>
+
+        <button
+          class="card-actions-button"
+          mat-button
+          matTooltip="Ara"
+          matTooltipPosition="above"
+          (click)="searchHide = !searchHide"
+          (click)="filterText = ''"
+          (click)="filterDataSource()"
+        >
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+    </mat-card-actions>
+    <mat-card-content class="card-content">
+      <mat-progress-bar
+        *ngIf="dataLoaded == false"
+        mode="indeterminate"
+      ></mat-progress-bar>
+
+      <div class="search-input-box">
+        <mat-form-field
+          class="search"
+          *ngIf="searchHide"
+          appearance="fill"
+          color="primary"
+        >
+          <mat-label>Ara</mat-label>
+          <input
+            matInput
+            [(ngModel)]="filterText"
+            (keyup)="filterDataSource()"
+            placeholder="Aranacak Kelimeyi Yazınız."
+          />
+
+          <button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="filterText = ''"
+            (click)="filterDataSource()"
+          >
+            <mat-icon>{{ filterText ? "clear" : "search" }}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <section class="section-example-container mat-elevation-z8">
+        <table
+          *ngIf="invoiceHeaderList"
+          mat-table
+          [dataSource]="dataSource"
+          matSort
+        >
+          <ng-container matColumnDef="invoiceId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Invoice Id
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.invoiceId }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="senderTitle">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Sender Title
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.senderTitle }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="receiverTitle">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Receiver Title
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.receiverTitle }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.date }}
+            </td>
+          </ng-container>
+
+          <tr
+            class="action-header"
+            mat-header-row
+            *matHeaderRowDef="displayedColumns"
+          ></tr>
+          <tr
+            class="action-cell"
+            mat-row
+            (click)="openFilterDialog(row)"
+            *matRowDef="let row; columns: displayedColumns"
+          ></tr>
+        </table>
+        <mat-paginator
+          [pageSize]="10"
+          [pageSizeOptions]="[10, 20, 30, 50, 100]"
+          showFirstLastButtons
+        >
+        </mat-paginator>
+      </section>
+    </mat-card-content>
+  </mat-card>
+</div>

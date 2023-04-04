@@ -1,0 +1,25 @@
+.invoice-example-container {
+  margin: 12px;
+  .invoice-title {
+    text-align: center;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  .invoice-total {
+    text-align: end;
+    margin: 5px;
+  }
+}
+
+.close-button {
+  display: flex;
+  justify-content: end;
+  margin: 10px;
+
+  button {
+    width: 150px;
+  }
+}

@@ -1,0 +1,49 @@
+<div class="invoice-example-container" style="margin: 10px">
+  <h1 class="invoice-title" style="text-align: center">Invoice</h1>
+
+  <h4>Invoice No : {{ invoiceId }}</h4>
+  <h4>Sender Title : {{ senderTitle }}</h4>
+  <h4>Receiver Title : {{ receiverTitle }}</h4>
+  <h4>Date : {{ date }}</h4>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef>Quantity</th>
+      <td mat-cell *matCellDef="let element">{{ element.quantity }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="unitCode">
+      <th mat-header-cell *matHeaderCellDef>UnitCode</th>
+      <td mat-cell *matCellDef="let element">{{ element.unitCode }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="unitPrice">
+      <th mat-header-cell *matHeaderCellDef>unitPrice</th>
+      <td mat-cell *matCellDef="let element">{{ element.unitPrice }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef>Total Price</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.unitPrice * element.quantity | currency : "₺" }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <h2 class="invoice-total">Total Quantity : {{ getTotalQuantity() }}</h2>
+  <h2 class="invoice-total">
+    Total Price : {{ getTotalPrice() | currency : "₺" }}
+  </h2>
+</div>
+
+<div class="close-button">
+  <button mat-raised-button color="primary" mat-dialog-close>Kapat</button>
+</div>
