@@ -1,4 +1,4 @@
-# Invoice
+# Invoice Frontend
 
 ## Screen Shoot
 ![Invoice](https://user-images.githubusercontent.com/81297825/230163022-c4ca6ccf-9663-44e5-ba0e-a0048f4804fd.png)
